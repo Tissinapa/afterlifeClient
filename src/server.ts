@@ -45,6 +45,7 @@ app.use((req, res, next) => {
       response ? writeResponseToNodeResponse(response, res) : next(),
     )
     .catch(next);
+    
 });
 
 /**
