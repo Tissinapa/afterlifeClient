@@ -1,0 +1,9 @@
+#bgImage{
+    height: 100vh;
+    width: 100%;
+    background-image: url('assets/taustakuva.jpeg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
