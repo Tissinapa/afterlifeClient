@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
   <div class="home-container">
     <h1>Welcome to Afterlife</h1>
     <p>Your journey beyond begins here.</p>
+    <input class="home-dest-btn" type="button" value="Click here to choose your destination"/>
 
   </div>
     `,
@@ -36,6 +37,19 @@ import { Component } from '@angular/core';
       text-align: center;    
 
   }
+  .home-dest-btn {
+      background-color: #4CAF50; 
+      border: none;
+  }
+  .home-dest-btn:hover {
+  background-color: red;
+}
+
+.home-dest-btn:active {
+  box-shadow:
+    inset -2px -2px 3px rgb(255 255 255 / 60%),
+    inset 2px 2px 3px rgb(0 0 0 / 60%);
+}    
     `]
   //templateUrl: './home.html',
   //styleUrl: './home.css',
