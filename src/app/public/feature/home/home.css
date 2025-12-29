@@ -1,0 +1,36 @@
+img {
+  max-width: 100%;
+  height: auto;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.home-container {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 60%;
+  padding: 20px;
+  text-align: center;
+}
+
+.home-dest-btn {
+  background-color: #4CAF50;
+  border: none;
+}
+
+.home-dest-btn:hover {
+  background-color: red;
+}
+
+.home-dest-btn:active {
+  box-shadow:
+    inset -2px -2px 3px rgb(255 255 255 / 60%),
+    inset 2px 2px 3px rgb(0 0 0 / 60%);
+}
