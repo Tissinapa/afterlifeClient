@@ -6,13 +6,15 @@ import { Routes } from '@angular/router';
 import { Public } from './public/public'; 
 import { Home } from './public/feature/home/home';
 import { Store } from './public/feature/store/store';
+import { Admin } from './admin/admin';
 
 export const routes: Routes = [
   {
     path: '',
     component: Public,                    
     children: [
-      { path: '', component: Home },     
+      { path: '', component: Home },
+      //{ path: 'admin', loadChildren: () => import('./admin/admin-module').then(m => m.AdminModule) },     
       
       
     ]
