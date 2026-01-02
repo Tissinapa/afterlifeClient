@@ -14,6 +14,7 @@ export const routes: Routes = [
     component: Public,                    
     children: [
       { path: '', component: Home },
+      { path: 'store', component: Store }
       //{ path: 'admin', loadChildren: () => import('./admin/admin-module').then(m => m.AdminModule) },     
       
       
