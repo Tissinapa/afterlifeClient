@@ -1,3 +1,27 @@
-<p>store works!</p>
+
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md space-y-6">
+  <h2 class="text-xl font-semibold text-gray-800 ">
+    Select Departure Date
+  </h2>
+
+
+  <mat-form-field appearance="outline" class="w-full mat-mdc-form-field-density-compact"> 
+    <mat-label>Departure Date</mat-label>
+    <input
+    matInput
+    [matDatepicker]="picker"
+    [(ngModel)]="departureDate"
+    [min]="minDate"
+  />
+    <mat-datepicker-toggle matIconSuffix [for]="picker" ></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+  </mat-form-field>
+
+  <p *ngIf="departureDate">
+    Selected date: {{ departureDate | date:'longDate' }}
+  </p>
+
+</div>
+
 
 <router-outlet></router-outlet>
