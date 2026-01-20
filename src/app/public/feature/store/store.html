@@ -1,17 +1,17 @@
 
 
 <div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
     
-    <div class="space-y-2">
+    <div class="space-x-2">
       <h2 class="text-xl font-semibold text-gray-800">
         Select Your Destination
       </h2>
 
       <mat-form-field class="w-full">
         <mat-label>Destination</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="selectedDestination"> 
           @for (destination of destinations; track destination.name) {
             <mat-option [value]="destination.name">
               {{ destination.viewValue }}
@@ -19,10 +19,32 @@
           }
         </mat-select>
       </mat-form-field>
-    </div>
 
+      <p *ngIf="selectedDestination">
+        Selected destination: {{ selectedDestination }}
+
+      </p>
+    </div>
     
-    <div class="space-y-2">
+    <div class="flex space-x-4">
+      <section>
+        <h2 class="text-xl font-semibold text-gray-800">
+        Select seat class
+        </h2>
+        <mat-button-toggle-group class=""
+          name="seatClass"
+          
+          aria-label="Seat Class"
+          
+        >
+          <mat-button-toggle value="aClass">A</mat-button-toggle>
+          <mat-button-toggle value="bClass">B</mat-button-toggle>
+          <mat-button-toggle value="bClass">C</mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+    </div>
+    
+    <div class="space-x-2">
       <h2 class="text-xl font-semibold text-gray-800">
         Select Departure Date
       </h2>
@@ -46,6 +68,50 @@
 
   </div>
 </div>
+<!-- SEAT SELECTION -->
+    <div *ngIf="selectedDestination" class="mt-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">
+        Select Your Seat
+      </h2>
+
+      <!-- HELL: 2 x 15 -->
+      <div
+        *ngIf="selectedDestination === 'HELL'"
+        class="grid grid-cols-2 gap-2 max-w-xs"
+      >
+        @for (seat of seats; track seat) {
+          <button
+            class="border rounded p-2 text-sm hover:bg-red-100"
+            [class.bg-red-500]="selectedSeat === seat"
+            [class.text-white]="selectedSeat === seat"
+            (click)="selectedSeat = seat"
+          >
+            {{ seat }}
+          </button>
+        }
+      </div>
+
+      <!-- HEAVEN: 3 x 10 -->
+      <div
+        *ngIf="selectedDestination === 'HEAVEN'"
+        class="grid grid-cols-3 gap-2 max-w-xs"
+      >
+        @for (seat of seats; track seat) {
+          <button
+            class="border rounded p-2 text-sm hover:bg-blue-100"
+            [class.bg-blue-500]="selectedSeat === seat"
+            [class.text-white]="selectedSeat === seat"
+            (click)="selectedSeat = seat"
+          >
+            {{ seat }}
+          </button>
+        }
+      </div>
+
+      <p *ngIf="selectedSeat" class="mt-3 font-medium">
+        Selected seat: {{ selectedSeat }}
+      </p>
+    </div>
 
 
 
