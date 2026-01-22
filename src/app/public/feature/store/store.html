@@ -1,75 +1,85 @@
 
+<div class="min-h-screen bg-[url('/assets/storekuva.png')] bg-cover bg-center relative">
+  <div class="absolute inset-0 backdrop-blur-md bg-white/20"></div>
 
-<div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="relative z-10">
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-black/40 backdrop-blur-md text-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-    
-    <div class="space-x-2">
-      <h2 class="text-xl font-semibold text-gray-800">
-        Select Your Destination
-      </h2>
+        <!-- DESTINATION SELECT-->
+        <div class="space-x-2">
+          <h2 class="text-xl font-semibold text-gray-800">
+            Select Your Destination
+          </h2>
 
-      <mat-form-field class="w-full">
-        <mat-label>Destination</mat-label>
-        <mat-select [(ngModel)]="selectedDestination"> 
-          @for (destination of destinations; track destination.name) {
-            <mat-option [value]="destination.name">
-              {{ destination.viewValue }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field class="w-full">
+            <mat-label>Destination</mat-label>
+            <mat-select [(ngModel)]="selectedDestination"> 
+              @for (destination of destinations; track destination.name) {
+                <mat-option [value]="destination.name">
+                  {{ destination.viewValue }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-      <p *ngIf="selectedDestination">
-        Selected destination: {{ selectedDestination }}
+          <p *ngIf="selectedDestination">
+            Selected destination: {{ selectedDestination }}
 
-      </p>
+          </p>
+        </div>
+        
+        <div class="flex space-x-4">
+          <section>
+            <h2 class="text-xl font-semibold text-gray-800">
+            Select seat class
+            </h2>
+            <mat-button-toggle-group class=""
+              name="seatClass"
+              
+              aria-label="Seat Class"
+              
+            >
+              <mat-button-toggle value="aClass">A</mat-button-toggle>
+              <mat-button-toggle value="bClass">B</mat-button-toggle>
+              <mat-button-toggle value="bClass">C</mat-button-toggle>
+            </mat-button-toggle-group>
+          </section>
+        </div>
+        <!-- DEPARTURE DATE SELECT-->
+        <div class="space-x-2">
+          <h2 class="text-xl font-semibold text-gray-800">
+            Select Departure Date
+          </h2>
+
+          <mat-form-field appearance="outline" class="w-full mat-mdc-form-field-density-compact">
+            <mat-label>Departure Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="departureDate"
+              [min]="minDate"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <p *ngIf="departureDate">
+            Selected date: {{ departureDate | date:'longDate' }}
+          </p>
+        </div>
+
+      </div>
     </div>
-    
-    <div class="flex space-x-4">
-      <section>
-        <h2 class="text-xl font-semibold text-gray-800">
-        Select seat class
-        </h2>
-        <mat-button-toggle-group class=""
-          name="seatClass"
-          
-          aria-label="Seat Class"
-          
-        >
-          <mat-button-toggle value="aClass">A</mat-button-toggle>
-          <mat-button-toggle value="bClass">B</mat-button-toggle>
-          <mat-button-toggle value="bClass">C</mat-button-toggle>
-        </mat-button-toggle-group>
-      </section>
-    </div>
-    
-    <div class="space-x-2">
-      <h2 class="text-xl font-semibold text-gray-800">
-        Select Departure Date
-      </h2>
-
-      <mat-form-field appearance="outline" class="w-full mat-mdc-form-field-density-compact">
-        <mat-label>Departure Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          [(ngModel)]="departureDate"
-          [min]="minDate"
-        />
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <p *ngIf="departureDate">
-        Selected date: {{ departureDate | date:'longDate' }}
-      </p>
-    </div>
-
-  </div>
-</div>
-<!-- SEAT SELECTION -->
-    <div *ngIf="selectedDestination" class="mt-6">
+    <!-- SEAT SELECTION -->
+    <div
+      *ngIf="selectedDestination"
+      class="mt-8 max-w-4xl mx-auto p-6 rounded-xl shadow-xl backdrop-blur-md"
+      [ngClass]="{
+        'bg-red-950/60 text-red-100 border border-red-500/30': selectedDestination === 'HELL',
+        'bg-sky-950/50 text-sky-100 border border-sky-400/30': selectedDestination === 'HEAVEN'
+      }"
+    >
       <h2 class="text-xl font-semibold text-gray-800 mb-2">
         Select Your Seat
       </h2>
@@ -112,6 +122,9 @@
         Selected seat: {{ selectedSeat }}
       </p>
     </div>
+  </div>
+</div>
+
 
 
 
