@@ -23,6 +23,12 @@ enum DestinationEnum{
   HELL = "HELL"
 }
 
+enum SeatClassEnum {
+  A = 'A',
+  B = 'B',
+  C = 'C'
+}
+
 @Component({
   selector: 'app-store',
   imports: [
@@ -47,6 +53,7 @@ export class Store {
 
   selectedDestination?: DestinationEnum;
   selectedSeat?: number;
+  selectedSeatClass?: SeatClassEnum;
 
   destinations = [
     { name: DestinationEnum.HEAVEN, viewValue: 'Heaven' },
