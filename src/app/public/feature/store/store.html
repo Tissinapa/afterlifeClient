@@ -14,7 +14,8 @@
 
           <mat-form-field class="w-full">
             <mat-label>Destination</mat-label>
-            <mat-select [(ngModel)]="selectedDestination"> 
+            <mat-select [(ngModel)]="selectedDestination"
+            (selectionChange)="fetchPriceIfReady()"> 
               @for (destination of destinations; track destination.name) {
                 <mat-option [value]="destination.name">
                   {{ destination.viewValue }}
@@ -39,6 +40,7 @@
               name="seatClass"
               aria-label="Seat Class"
               [(ngModel)]="selectedSeatClass"
+              (change)="fetchPriceIfReady()"
             >
               <mat-button-toggle [value]="'A'">A</mat-button-toggle>
               <mat-button-toggle [value]="'B'">B</mat-button-toggle>
@@ -58,6 +60,7 @@
               matInput
               [matDatepicker]="picker"
               [(ngModel)]="departureDate"
+              (ngModelChange)="fetchPriceIfReady()"
               [min]="minDate"
             />
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -150,6 +153,17 @@
             <p>
               <span class="font-medium">Date:</span>
               {{ departureDate || '—' }}
+            </p>
+            <p>
+            <span class="font-medium">Price:</span>
+
+            <ng-container *ngIf="isLoadingPrice">
+              Calculating…
+            </ng-container>
+
+            <ng-container *ngIf="!isLoadingPrice">
+              {{ price ? (price + ' ' + currency) : '—' }}
+            </ng-container>
             </p>
 
 

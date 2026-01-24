@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {ChangeDetectionStrategy} from '@angular/core';
+import { PriceService, PriceResponse } from '../price/price';
+
 
 
 // Destination is enum in bacakend, does this need to be changed?. Kysympähän vaan tulevaisuutta varten itseltäni!?
@@ -50,17 +52,57 @@ enum SeatClassEnum {
 export class Store {
   minDate = new Date();
   departureDate?: Date;
+  price?: number;
+  currency?: string;
+  isLoadingPrice = false;
 
-  selectedDestination?: DestinationEnum;
+  selectedDestination?: 'HEAVEN' | 'HELL';
+  selectedSeatClass?: 'A' | 'B' | 'C';
   selectedSeat?: number;
-  selectedSeatClass?: SeatClassEnum;
 
   destinations = [
     { name: DestinationEnum.HEAVEN, viewValue: 'Heaven' },
     { name: DestinationEnum.HELL, viewValue: 'Hell' },
   ];
 
+  constructor(private priceService: PriceService) {}
+  fetchPriceIfReady() {
+    if (!this.selectedDestination || !this.selectedSeatClass || !this.departureDate) {
+      this.price = undefined;
+      this.currency = undefined;
+      return;
+    }
+
+    const request = {
+      realmType: this.selectedDestination,
+      seatClass: this.selectedSeatClass,
+      departureDate: this.departureDate.toISOString().split('T')[0]
+    };
+
+    this.isLoadingPrice = true;
+
+    this.priceService.calculatePrice(request).subscribe({
+      next: (res) => {
+        this.price = res.price;
+        this.currency = res.currency;
+        this.isLoadingPrice = false;
+        console.log('Price fetched:', res); // ← helpful
+      },
+      error: (err) => {
+        console.error('Price fetch failed:', err);           // ← this will show real error!
+        if (err.status === 0) {
+          console.error('Likely CORS or network issue');
+        }
+        this.price = undefined;
+        this.currency = undefined;
+        this.isLoadingPrice = false;
+      }
+    });
+  }
+
   seats = Array.from({ length: 30 }, (_, i) => i + 1); // [1..30]
 
+
+  
 }
 
