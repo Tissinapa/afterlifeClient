@@ -86,10 +86,10 @@ export class Store {
         this.price = res.price;
         this.currency = res.currency;
         this.isLoadingPrice = false;
-        console.log('Price fetched:', res); // ← helpful
+        console.log('Price fetched:', res); 
       },
       error: (err) => {
-        console.error('Price fetch failed:', err);           // ← this will show real error!
+        console.error('Price fetch failed:', err);           
         if (err.status === 0) {
           console.error('Likely CORS or network issue');
         }
